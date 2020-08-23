@@ -53,7 +53,48 @@ img.avatar {
 
 
 
+<?php
+error_reporting(0);
+   $no;
+   $d=date("yy-m-d");
+  
+        $amt=$_POST["t1"];
+        $dis=$_POST["t2"];
+        
+    $servername="localhost";
+    $username="root";
+    $password="";
+    $db="project";
+    try{
+        $conn = new PDO("mysql:host=$servername;dbname=$db",$username,$password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        //echo "connected";
+        if(empty($amt))
+        {
+          echo '<script>alert("fill amount")</script>';
+        }
+        else
+        if(empty($dis))
+        {
+          echo '<script>alert("fill description")</script>';
+        }
+        else
+        if(!empty($amt) AND !empty($dis))
+        {
+          $i="INSERT INTO daily (amount,discription,dates) VALUES('$amt','$dis','$d')";
+          $conn->exec($i);
+          echo '<script>alert("inserted")</script>';
+        }
+        
+    }
+    catch(PDOException $e){
+        echo "failed".$e->getMessage();
+    }
+    
+?>
+<?php
 
+?>
 
 </body>
 </html>
